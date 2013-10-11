@@ -35,7 +35,7 @@ var SEEK = true;  //CHANGE THIS TO TURN SEEKING ON AND OFF
 var gravity = 0.3;
 var playerAccel = 0;
 var accelSide = 0.05;
-var colBoxSize = 20;
+var colBoxSize = 45;
 
 var glassNumber = 8;  //CHANGE THIS TO CHANGE THE AMOUNT OF GLASS
 var glassSpawnInterval = 300; //CHANGE THIS TO CHANGE HOW OFTEN GLASS SPAWNS
@@ -65,12 +65,16 @@ function init()
     //receives upon collision with an enemy
 
     //Create the player
-    player = new createjs.Shape();
-    player.graphics.beginFill("black").drawCircle(0, 0, radius);
-    player.x = canvas.width / 2;
-    player.y = canvas.height / 2;
-	
-    stage.addChild(player);
+    /*player = new createjs.Shape();
+ player.graphics.beginFill("black").drawCircle(0, 0, radius);
+ player.x = canvas.width / 2;
+ player.y = canvas.height / 2;*/
+
+    player = new createjs.Bitmap("characterTestImage.png");
+    player.setTransform(canvas.width / 2, canvas.height / 2, 0.3, 0.3);
+    player.regX = player.image.width * 0.5;
+    player.regY = player.image.height * 0.5;
+	stage.addChild(player);
 
     //Create the timer
     timerMsg = new createjs.Text('30', 'Bold 25px Arial', 'black');
@@ -341,9 +345,6 @@ function createGlassWave()
 
 function createOrb()
 {
-    var playerY = player.y;
-    createjs.Tween.get(player).to({y:playerY + 90}, 1000, createjs.Ease.getPowOut(2.2));
-
 	orbInst = new createjs.Shape();
 	orbInst.graphics.beginFill("blue").drawCircle(0,0, radius);
 	orbInst.x = (canvas.width / 2) + 350 * ((Math.floor(Math.random()*2)*2)-1);
